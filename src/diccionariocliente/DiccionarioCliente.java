@@ -25,11 +25,10 @@ public class DiccionarioCliente {
 //            System.exit(1);
 //        }
  
-        String hostName = "127.0.0.1";
-        int portNumber = 4444;
+        String hostName = "154.62.44.50";
+        int portNumber = 3478;
         String nombre = "Carrasco";
      
-        
         try (
             Socket kkSocket = new Socket(hostName, portNumber);
             PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
@@ -39,17 +38,14 @@ public class DiccionarioCliente {
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String fromServer;
             String fromUser;
-            
-            if ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
-                String inicioSesion = "PROTOCOL_PSP_JUNIO#HELLO_ITS_ME#"+nombre;
-                out.println(inicioSesion);
-            }
+            String inicioSesion = "PROTOCOL_PSP_JUNIO#HELLO_ITS_ME#"+nombre;
+            out.println(inicioSesion);
+
             while ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
+                System.out.println(fromServer);
                 fromUser = stdIn.readLine();
                 if (fromUser != null) {
-                    System.out.println();
+                    //System.out.println();
                     if (fromUser.contains("bye") || fromUser.contains("adios")){
                         out.println("PROTOCOL_PSP_JUNIO#GOODBYE_MY_LOVE#BY#" + nombre);
                         System.exit(-1);   
@@ -75,7 +71,13 @@ public class DiccionarioCliente {
                         System.out.println(palabraConEspacios.get(i));
                         out.println("PROTOCOL_PSP_JUNIO#ASK_FOR#" + palabraConEspacios.get(i) + "#BY#" + nombre);
                     }
+
+                    for(int i = 0; i < contadorEspacios; i++){
+                        fromServer = in.readLine();
+                        System.out.println(fromServer);
+                    }
                 } else out.println("PROTOCOL_PSP_JUNIO#ASK_FOR#" + fromUser + "#BY#" + nombre);
+                    System.out.println("Server: " + fromServer);
                 
             }   
         }catch (UnknownHostException e) {
