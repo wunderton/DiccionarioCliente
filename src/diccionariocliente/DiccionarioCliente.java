@@ -24,8 +24,8 @@ public class DiccionarioCliente {
 //                "Usage: java EchoClient <host name> <port number>");
 //            System.exit(1);
 //        }
- 
-        String hostName = "154.62.44.50";
+//127.0.0.1
+        String hostName = "127.0.0.1";
         int portNumber = 3478;
         String nombre = "Carrasco";
      
@@ -78,7 +78,7 @@ public class DiccionarioCliente {
                     }
                 } else out.println("PROTOCOL_PSP_JUNIO#ASK_FOR#" + fromUser + "#BY#" + nombre);
                     System.out.println("Server: " + fromServer);
-                
+                palabraConEspacios.clear();
             }   
         }catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
