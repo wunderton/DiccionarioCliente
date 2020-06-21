@@ -7,17 +7,18 @@ package diccionariocliente;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner; 
+import java.util.ArrayList;
 /**
  *
  * @author anton
  */
 public class DiccionarioCliente {
-
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-         
+         ArrayList<String> palabraConEspacios = new ArrayList<String>();
 //        if (args.length != 2) {
 //            System.err.println(
 //                "Usage: java EchoClient <host name> <port number>");
@@ -54,9 +55,29 @@ public class DiccionarioCliente {
                         System.exit(-1);   
                         }
                     }
-                    out.println("PROTOCOL_PSP_JUNIO#ASK_FOR#" + fromUser + "#BY#" + nombre);
-                }
+                if (fromUser.contains(" ")){
+                    int contadorEspacios = 0;
+                    
+                    for(int i = 0; i < fromUser.length(); i++){
+                        if(fromUser.charAt(i) == ' '){
+                        contadorEspacios++;
+                        }
+                    }    
+                    System.out.println(contadorEspacios);
 
+                    String[] espacios = fromUser.split(" ");
+        
+                    for(int i = 0; i <= contadorEspacios; i++) {   
+                        palabraConEspacios.add(espacios[i]);
+                    }
+
+                    for(int i = 0; i <= contadorEspacios; i++) {   
+                        System.out.println(palabraConEspacios.get(i));
+                        out.println("PROTOCOL_PSP_JUNIO#ASK_FOR#" + palabraConEspacios.get(i) + "#BY#" + nombre);
+                    }
+                } else out.println("PROTOCOL_PSP_JUNIO#ASK_FOR#" + fromUser + "#BY#" + nombre);
+                
+            }   
         }catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
             System.exit(1);
