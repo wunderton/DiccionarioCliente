@@ -55,29 +55,43 @@ public class DiccionarioCliente {
                     System.out.println("Server: " + mensajeDesdeServidor);
                     cliente.close();   
                 } else {
-                
-                    int contadorEspacios = 0;
-                    String[] palabras = mensajeDelUsuario.split(" ");
+                    
+                    if(mensajeDelUsuario.contains(" ")){
+                        int contadorEspacios = 0;
+                        String[] palabras = mensajeDelUsuario.split(" ");
 
-                    for(int i = 0; i < mensajeDelUsuario.length(); i++){
-                        if(mensajeDelUsuario.charAt(i) == ' '){
-                        contadorEspacios++;
+                        for(int i = 0; i < mensajeDelUsuario.length(); i++){
+                            if(mensajeDelUsuario.charAt(i) == ' '){
+                            contadorEspacios++;
+                            }
+                        }    
+                        //System.out.println(contadorEspacios);
+
+                        for(int i = 0; i < palabras.length; i++) {   
+                            System.out.println("DEBUG: " + palabras[i]);
+                            out.println("PROTOCOL_PSP_JUNIO#ASK_FOR#" + palabras[i] + "#BY#" + nombre);
+                            System.out.println("Cliente: PROTOCOL_PSP_JUNIO#ASK_FOR#"+palabras[i] +"#BY#" + nombre);
                         }
-                    }    
-                    //System.out.println(contadorEspacios);
-
-                    for(int i = 0; i < palabras.length; i++) {   
-                        System.out.println("DEBUG: " + palabras[i]);
-                        out.println("PROTOCOL_PSP_JUNIO#ASK_FOR#" + palabras[i] + "#BY#" + nombre);
-                        System.out.println("Cliente: PROTOCOL_PSP_JUNIO#ASK_FOR#"+palabras[i] +"#BY#" + nombre);
-                    }
-                    for(int i  = 0; i < palabras.length; i++){
+                        
+                        for(int i  = 0; i < palabras.length; i++){
+                            mensajeDesdeServidor = in.readLine();
+                            System.out.println("Server" +mensajeDesdeServidor);
+                        }
+                    } else if(!mensajeDelUsuario.contains(" ")){
+                        //for(int i  = 0; i < 100; i++){
+                        System.out.println("DEBUG: " + mensajeDelUsuario);
+                        out.println("PROTOCOL_PSP_JUNIO#ASK_FOR#" + mensajeDelUsuario + "#BY#" + nombre);
+                        System.out.println("Cliente: PROTOCOL_PSP_JUNIO#ASK_FOR#"+ mensajeDelUsuario +"#BY#" + nombre);
+                        //}
+                        //for(int i  = 0; i < 100; i++){
                         mensajeDesdeServidor = in.readLine();
                         System.out.println("Server" +mensajeDesdeServidor);
+                        //}
+                        }
                     }
 
                 }   
-            }
+            
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
             System.exit(1);
