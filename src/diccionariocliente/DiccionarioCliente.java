@@ -20,14 +20,14 @@ public class DiccionarioCliente {
     public static void main(String[] args) throws IOException {
          
 
-    //localhost: 127.0.0.1
-    //Mi ip: 85.55.245.139
-    //Cuvi: 154.62.44.50
-    //Olivencia: 154.47.140.75
-    //Raul: 176.57.103.161
+    //localhost:    127.0.0.1
+    //Mi ip:        85.55.245.139
+    //Cuvi:         154.62.44.50
+    //Olivencia:    154.47.140.75
+    //Raul:         176.57.103.161
 
-        String hostName = "127.0.0.1";
-        int portNumber = 3478;
+        String hostName = "176.57.103.161";
+        int portNumber = 8888;
         String nombre = "Carrasco";
      
         try (
@@ -46,14 +46,14 @@ public class DiccionarioCliente {
             mensajeDesdeServidor = in.readLine();
             System.out.println("Server: " +mensajeDesdeServidor);
 
-            while (mensajeDelUsuario != "bye") {
+            while (mensajeDelUsuario != "GOODBYE_MY_LOVE") {
                 mensajeDelUsuario = fromKeyboard.readLine();
-                if (mensajeDelUsuario.contains("bye")) {
+                if (mensajeDelUsuario.contains("GOODBYE_MY_LOVE")) {
                     out.println("PROTOCOL_PSP_JUNIO#GOODBYE_MY_LOVE#BY#" + nombre);
                     System.out.println("Cliente: PROTOCOL_PSP_JUNIO#GOODBYE_MY_LOVE_BY" + nombre);
                     mensajeDesdeServidor = in.readLine();
                     System.out.println("Server: " + mensajeDesdeServidor);
-                    cliente.close();   
+                    mensajeDelUsuario = "GOODBYE_MY_LOVE";   
                 } else {
                     
                     if(mensajeDelUsuario.contains(" ")){
@@ -78,15 +78,15 @@ public class DiccionarioCliente {
                             System.out.println("Server" +mensajeDesdeServidor);
                         }
                     } else if(!mensajeDelUsuario.contains(" ")){
-                        //for(int i  = 0; i < 100; i++){
+                        for(int i  = 0; i < 10; i++){
                         System.out.println("DEBUG: " + mensajeDelUsuario);
                         out.println("PROTOCOL_PSP_JUNIO#ASK_FOR#" + mensajeDelUsuario + "#BY#" + nombre);
                         System.out.println("Cliente: PROTOCOL_PSP_JUNIO#ASK_FOR#"+ mensajeDelUsuario +"#BY#" + nombre);
-                        //}
-                        //for(int i  = 0; i < 100; i++){
+                        }
+                        for(int i  = 0; i < 10; i++){
                         mensajeDesdeServidor = in.readLine();
                         System.out.println("Server" +mensajeDesdeServidor);
-                        //}
+                        }
                         }
                     }
 
